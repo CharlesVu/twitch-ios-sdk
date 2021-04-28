@@ -159,6 +159,9 @@ struct TWClipsRequest: TWRequest {
     var params: [TWParam] = []
     var body: Data?
     init(_ broadcasterId: String?, _ gameId: String?, _ id: [String]?) {
+        if let broadcasterId = broadcasterId {
+            params.append(TWParam("broadcaster_id", broadcasterId))
+        }
     }
 }
 
@@ -169,6 +172,9 @@ struct TWStreamsRequest: TWRequest {
     var params: [TWParam] = []
     var body: Data?
     init(_ after: String?, _ before: String?, _ first: Int?, _ gameId: String?, _ language: String?, _ userId: String?, _ userLogin: String?) {
+        if let userId = userId {
+            params.append(TWParam("user_id", userId))
+        }
     }
 }
 

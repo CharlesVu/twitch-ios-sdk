@@ -65,6 +65,8 @@ extension TWAuthViewController: WKNavigationDelegate {
         if let response = navigationResponse.response as? HTTPURLResponse, 500 ..< 600 ~= response.statusCode {
             print("Twitch - Status code was \(response.statusCode), but expected 2xx. Twitch might be temporarily down.")
             dismiss(animated: true, completion: nil)
+        } else if let response = navigationResponse.response as? HTTPURLResponse, let url = response.url?.absoluteString, url.contains("access_token") {
+            handleRedirect(url: response.url)
         }
         decisionHandler(.allow)
     }
